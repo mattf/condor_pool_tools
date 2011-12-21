@@ -1,8 +1,8 @@
 #!/usr/bin/awk -f
 
 function parse_time(string) {
-   return mktime(gensub(/([^/]*)\/([^ ]*) ([^:]*):([^:]*):([^ ]*) .*/,
-                        "1984 \\1 \\2 \\3 \\4 \\5", "g"))
+   return mktime(gensub(/([^/]*)\/([^ ]*)\/([^ ]*) ([^:]*):([^:]*):([^ ]*) .*/,
+                        "1984 \\1 \\2 \\4 \\5 \\6", "g"))
 }
 
 BEGIN { started = 0; finished = 0 }
