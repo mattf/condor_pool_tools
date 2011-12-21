@@ -1,0 +1,13 @@
+Random tools for interacting with a Condor pool -
+
+job_rates.sh will give exit rate information, providing information
+about how many jobs are completed by a condor_schedd per second, and
+if the schedd is getting backed up.
+
+LogTimeGap.awk will find gaps in log files, typically not something
+you'll see in a busy pool. Try using it with tail -F.
+
+NegotiatorLog.awk will provide performance information for a
+negotiation cycle. Note, in versions of Condor >=7.6, many of these
+statistics can be found on the condor_negotiator's ad, via
+condor_status -negotiator -long.
