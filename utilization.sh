@@ -9,20 +9,25 @@ USED='State != "Owner" && State != "Unclaimed"'
 UNAVAILABLE="State == \"Owner\" || ($UNUSED && $UNUSABLE)"
 AVAILABLE="($UNAVAILABLE) == FALSE"
 
-unavailable_cpus=$(condor_status -constraint "$UNAVAILABLE" -format '%d\n' Cpus | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
-available_cpus=$(condor_status -constraint "$AVAILABLE" -format '%d\n' Cpus | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
+TMP=$(mktemp $0.XXXXXX)
+condor_status -format '%d' "$UNAVAILABLE" -format '\t%d' "$AVAILABLE" -format '\t%d' "$USED" -format '\t%d' Cpus -format '\t%d\n' Memory > $TMP
+
+unavailable_cpus=$(awk 'BEGIN{sum=0} {if ($1==1) sum+=$4} END{print sum}' $TMP)
+available_cpus=$(awk 'BEGIN{sum=0} {if ($2==1) sum+=$4} END{print sum}' $TMP)
+used_cpus=$(awk 'BEGIN{sum=0} {if ($3==1) sum+=$4} END{print sum}' $TMP)
 total_cpus=$((unavailable_cpus + available_cpus))
-used_cpus=$(condor_status -constraint "$USED" -format '%d\n' Cpus | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
 
-unavailable_memory=$(condor_status -constraint "$UNAVAILABLE" -format '%d\n' Memory | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
-available_memory=$(condor_status -constraint "$AVAILABLE" -format '%d\n' Memory | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
+unavailable_memory=$(awk 'BEGIN{sum=0} {if ($1==1) sum+=$5} END{print sum}' $TMP)
+available_memory=$(awk 'BEGIN{sum=0} {if ($2==1) sum+=$5} END{print sum}' $TMP)
+used_memory=$(awk 'BEGIN{sum=0} {if ($3==1) sum+=$5} END{print sum}' $TMP)
 total_memory=$((unavailable_memory + available_memory))
-used_memory=$(condor_status -constraint "$USED" -format '%d\n' Memory | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
 
-unavailable_slots=$(condor_status -constraint "$UNAVAILABLE" -format '1\n' None | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
-available_slots=$(condor_status -constraint "$AVAILABLE" -format '1\n' None | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
+unavailable_slots=$(awk 'BEGIN{sum=0} {sum+=$1} END{print sum}' $TMP)
+available_slots=$(awk 'BEGIN{sum=0} {sum+=$2} END{print sum}' $TMP)
+used_slots=$(awk 'BEGIN{sum=0} {sum+=$3} END{print sum}' $TMP)
 total_slots=$((unavailable_slots + available_slots))
-used_slots=$(condor_status -constraint "$USED" -format '1\n' None | awk 'BEGIN{sum=0} {sum+=$1} END{print sum}')
+
+rm $TMP
 
 percent()
 {
