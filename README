@@ -11,3 +11,10 @@ NegotiatorLog.awk will provide performance information for a
 negotiation cycle. Note, in versions of Condor >=7.6, many of these
 statistics can be found on the condor_negotiator's ad, via
 condor_status -negotiator -long.
+
+utilization.sh will calculate pool utilization from slot data. For
+example,
+          Unavailable Available    Total     Used:  Avail   Total
+   Slots         5857      5597    11454     4766  85.15%  41.60%
+   Cpus          6339      5913    12252     5087  86.03%  41.51%
+   Memory    14330280  11786518 26116798 10698334  90.76%  40.96%
