@@ -12,14 +12,14 @@ AVAILABLE="($UNAVAILABLE) == FALSE"
 TMP=$(mktemp $0.XXXXXX)
 condor_status -format '%d' "$UNAVAILABLE" -format '\t%d' "$AVAILABLE" -format '\t%d' "$USED" -format '\t%d' Cpus -format '\t%d\n' Memory > $TMP
 
-unavailable_cpus=$(awk 'BEGIN{sum=0} {if ($1==1) sum+=$4} END{print sum}' $TMP)
-available_cpus=$(awk 'BEGIN{sum=0} {if ($2==1) sum+=$4} END{print sum}' $TMP)
-used_cpus=$(awk 'BEGIN{sum=0} {if ($3==1) sum+=$4} END{print sum}' $TMP)
+unavailable_cpus=$(awk 'BEGIN{sum=0} {sum+=$4*$1} END{print sum}' $TMP)
+available_cpus=$(awk 'BEGIN{sum=0} {sum+=$4*$2} END{print sum}' $TMP)
+used_cpus=$(awk 'BEGIN{sum=0} {sum+=$4*$3} END{print sum}' $TMP)
 total_cpus=$((unavailable_cpus + available_cpus))
 
-unavailable_memory=$(awk 'BEGIN{sum=0} {if ($1==1) sum+=$5} END{print sum}' $TMP)
-available_memory=$(awk 'BEGIN{sum=0} {if ($2==1) sum+=$5} END{print sum}' $TMP)
-used_memory=$(awk 'BEGIN{sum=0} {if ($3==1) sum+=$5} END{print sum}' $TMP)
+unavailable_memory=$(awk 'BEGIN{sum=0} {sum+=$5*$1} END{print sum}' $TMP)
+available_memory=$(awk 'BEGIN{sum=0} {sum+=$5*$2} END{print sum}' $TMP)
+used_memory=$(awk 'BEGIN{sum=0} {sum+=$5*$3} END{print sum}' $TMP)
 total_memory=$((unavailable_memory + available_memory))
 
 unavailable_slots=$(awk 'BEGIN{sum=0} {sum+=$1} END{print sum}' $TMP)
