@@ -34,6 +34,11 @@ percent()
    echo "scale=4;($1/$2)*100" | bc
 }
 
+if [ $total_slots -eq 0 ]; then
+   echo "Well done, 100% utilization"
+   exit 0
+fi
+
 used_avail_cpu_percent=$(percent $used_cpus $available_cpus)
 used_tot_cpu_percent=$(percent $used_cpus $total_cpus)
 
