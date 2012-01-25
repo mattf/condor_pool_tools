@@ -34,7 +34,10 @@ percent()
    echo "scale=4;($1/$2)*100" | bc
 }
 
-if [ $total_slots -eq 0 ]; then
+if [ $total_slots -eq 0 -o \
+     $available_slots -eq 0 -o \
+     $available_cpus -eq 0 -o \
+     $available_memory -eq 0 ]; then
    echo "Well done, 100% utilization"
    exit 0
 fi
