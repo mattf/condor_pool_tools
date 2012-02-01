@@ -9,6 +9,13 @@ USED='State != "Owner" && State != "Unclaimed"'
 UNAVAILABLE="State == \"Owner\" || ($UNUSED && $UNUSABLE)"
 AVAILABLE="($UNAVAILABLE) == FALSE"
 
+# NOTE: If using an UNUSABLE filter, it is possible to have
+#       Unavailable+Used slots. A filter such as Cpus==0 will not have
+#       this problem. The result of Unvail+Used is that the Avail %
+#       for slots can be >100%. Either the >100% needs to be allowed
+#       or the Avail % could be adjusted to filter out
+#       Unavailable+Used.
+
 TMP=$(mktemp $0.XXXXXX)
 condor_status -format '%d' "$UNAVAILABLE" -format '\t%d' "$AVAILABLE" -format '\t%d' "$USED" -format '\t%d' Cpus -format '\t%d\n' Memory > $TMP
 
