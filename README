@@ -24,3 +24,19 @@ second window from the Collector. NTP is your friend.
 
 limits_usage.sh will display concurrency limits that are in use and
 information about their usage.
+
+group_share.sh will display current AccountingGroup usage from slot
+data. For example,
+   Used ( Avail) Group
+      2 ( 0.73%) 
+      3 ( 1.09%) jane.lover
+     10 ( 3.65%) jane.hater
+     15 ( 5.47%) jeff.freakout
+     19 ( 6.93%) sally.normal
+     20 ( 7.30%) patrick.normal
+     21 ( 7.66%) steve.normal
+     24 ( 8.76%) jane.mad
+     61 (22.26%) steve.longwinded
+     63 (22.99%) susan.normal
+    238  86.86% - Total
+
