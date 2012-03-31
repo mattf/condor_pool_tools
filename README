@@ -40,3 +40,9 @@ data. For example,
      63 (22.99%) susan.normal
     238  86.86% - Total
 
+condor_jobrates will display statistics for condor_schedds with
+running jobs in a pool. For example,
+          Schedd    Job    Job    Current Historical    Current Historical
+                 Starts  Compl   Runtimes   Runtimes   Idletime   Idletime
+                   /sec   /sec      (sec)      (sec)      (sec)      (sec)
+    eeyore.local   3.95   4.38       36.7       45.5        8.8      990.4
