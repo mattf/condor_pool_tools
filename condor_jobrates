@@ -1,7 +1,7 @@
 #!/bin/sh
-printf "%15s %6s %6s %10s %10s %10s %10s\n" "Schedd" "Job" "Job" "Current" "Historical" "Current" "Historical"
-printf "%15s %6s %6s %10s %10s %10s %10s\n" "" "Starts" "Compl" "Runtimes" "Runtimes" "Idletime" "Idletime"
-printf "%15s %6s %6s %10s %10s %10s %10s\n" "" "/sec" "/sec" "(sec)" "(sec)" "(sec)" "(sec)"
-echo ""
+echo "         Schedd    Job    Job    Current Historical    Current Historical"
+echo "                Starts  Compl   Runtimes   Runtimes   Idletime   Idletime"
+echo "                  /sec   /sec      (sec)      (sec)      (sec)      (sec)"
+echo
 condor_status -constraint 'TotalRunningJobs>0 && MeanRunningTime<900 && MeanRunningTime>0' -schedd -format '%15.15s ' Name -format '%6.2f ' JobStartRate -format '%6.2f ' JobCompletionRate -format '%10.1f ' MeanRunningTime -format '%10.1f ' MeanRunningTimeCum -format '%10.1f ' MeanTimeToStart -format '%10.1f\n' MeanTimeToStartCum
 
