@@ -46,3 +46,38 @@ running jobs in a pool. For example,
                  Starts  Compl   Runtimes   Runtimes   Idletime   Idletime
                    /sec   /sec      (sec)      (sec)      (sec)      (sec)
     eeyore.local   3.95   4.38       36.7       45.5        8.8      990.4
+
+group_line.rb will display AccountingGroup usage, combined with
+configured shares and current job load. For example,
+  Group          Used    Avail   Config     Diff    Idle
+  sally            68   27.31%     0.0%    27.31       0 *
+   `-normal        68  100.00%     0.0%   100.00       0 *
+  susan            26   10.44%     0.0%    10.44       0 *
+   `-normal        26  100.00%     0.0%   100.00       0 *
+  steve            25   10.04%    33.0%   -22.96      24 
+   `-normal         9   36.00%     0.0%    36.00      24 *
+   `-longwinded    16   64.00%     0.0%    64.00       0 *
+  php               0    0.00%     7.0%    -7.00       0 
+  java              0    0.00%     8.0%    -8.00       0 
+  jane             34   13.65%     0.0%    13.65      37 *
+   `-lover          0    0.00%     0.0%     0.00       0 *
+   `-normal        11   32.35%     0.0%    32.35       0 *
+   `-mad           23   67.65%     0.0%    67.65       0 *
+   `-hater          0    0.00%     0.0%     0.00      37 *
+  cpp               0    0.00%     4.0%    -4.00       0 
+   `-new            0    0.00%    25.0%   -25.00       0 
+   `-old            0    0.00%    75.0%   -75.00       0 
+  c                 0    0.00%     7.0%    -7.00       0 
+  jeff             16    6.43%     0.0%     6.43      12 *
+   `-freakout      10   62.50%     0.0%    62.50       0 *
+   `-awkward        6   37.50%     0.0%    37.50      12 *
+  patrick          18    7.23%     0.0%     7.23       0 *
+   `-normal        18  100.00%     0.0%   100.00       0 *
+  python            0    0.00%     9.0%    -9.00       0 
+  javascript        0    0.00%    20.0%   -20.00       0 
+  perl              0    0.00%     5.0%    -5.00       0 
+  ruby              0    0.00%    15.0%   -15.00       0 
+   `-fancy          0    0.00%    50.0%   -50.00       0 
+  shell             0    0.00%     8.0%    -8.00       0 
+          Total   187   75.10%                        74
+  * = no quota defined, freeloader
