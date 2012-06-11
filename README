@@ -19,6 +19,10 @@ example,
    Cpus          6339      5913    12252     5087  86.03%  41.51%
    Memory    14330280  11786518 26116798 10698334  90.76%  40.96%
 
+utilization_for_opentsdb.sh generates the same data as utilization.sh,
+but provides it in a form suitable for publishing to OpenTSDB
+(http://opentsdb.net).
+
 clock_skew.sh will display machines whose clock skew is outside a 60
 second window from the Collector. NTP is your friend.
 
