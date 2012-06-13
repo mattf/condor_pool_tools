@@ -51,6 +51,10 @@ running jobs in a pool. For example,
                    /sec   /sec      (sec)      (sec)      (sec)      (sec)
     eeyore.local   3.95   4.38       36.7       45.5        8.8      990.4
 
+schedd_stats_for_opentsdb.sh generates the condor_jobrates data, plus
+total idle/running/held counts, and provides it in a form suitable for
+publishing to OpenTSDB (http://opentsdb.net).
+
 group_line.rb will display AccountingGroup usage, combined with
 configured shares and current job load. For example,
   Group          Used    Avail   Config     Diff    Idle
