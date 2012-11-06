@@ -12,13 +12,13 @@ condor_status -schedd \
               -format " %d" TotalIdleJobs \
               -format " %d" TotalRunningJobs \
               -format " %d" TotalHeldJobs \
-              -format " %f" MeanRunningTime \
-              -format " %f" MeanTimeToStart \
-              -format " %f" MeanRunningTimeCum \
-              -format " %f" MeanTimeToStartCum \
-              -format " %f" JobSubmissionRate \
-              -format " %f" JobStartRate \
-              -format " %f" JobCompletionRate \
+              -format " %f" "RecentJobsAccumRunningTime / RecentJobsCompleted" \
+              -format " %f" "RecentJobsAccumTimeToStart / RecentJobsStarted" \
+              -format " %f" "JobsAccumRunningTime / JobsCompleted" \
+              -format " %f" "JobsAccumTimeToStart / JobsStarted" \
+              -format " %f" "RecentJobsSubmitted / RecentStatsLifetime" \
+              -format " %f" "RecentJobsStarted / RecentStatsLifetime" \
+              -format " %f" "RecentJobsCompleted / RecentStatsLifetime" \
               -format "\n" TRUE | \
   awk -v pool=$(condor_config_val COLLECTOR_HOST) \
       'BEGIN { time = systime() }
